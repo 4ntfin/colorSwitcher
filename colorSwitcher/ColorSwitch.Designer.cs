@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ColorSwitch));
             this.panel1 = new System.Windows.Forms.Panel();
             this.block1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -160,10 +161,11 @@
             this.Controls.Add(this.Score);
             this.Controls.Add(this.Scoreboard);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "ColorSwitch";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Color Switch | Finlay Lecheminant";
+            this.Text = "Color Switch";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ColorSwitch_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

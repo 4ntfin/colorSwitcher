@@ -7,13 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.VisualBasic;
 
 namespace colorSwitcher
 {
     public partial class Menu : Form
     {
+
         public Menu()
         {
+            
             InitializeComponent();
         }
 

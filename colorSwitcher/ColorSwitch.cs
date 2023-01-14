@@ -27,14 +27,16 @@ namespace colorSwitcher
         int score = 0;
         bool gameOver = false;
 
+        string playerName;
+
         SoundPlayer music = new SoundPlayer(Properties.Resources.GameMusic);
-        SoundPlayer epicfail = new SoundPlayer(Properties.Resources.Fail);
+     //   SoundPlayer epicfail = new SoundPlayer(Properties.Resources.Fail);
 
         public ColorSwitch()
         {
             Application.Run(new Menu());
-            InitializeComponent();
            
+            InitializeComponent();
             resetGame();
         }
 
@@ -56,13 +58,12 @@ namespace colorSwitcher
 
             if (block2.Top > 500)
             {
-                // add block 1 is already on its way to the form and passed 200 pixels
                 if (block1.Top > 100)
                 {
-                    blockColor = rnd.Next(colors.Count); // choose a random color from the list
-                    block2.BackColor = colors[blockColor]; // apply the color to block 2
-                    block2.Top = (block1.Top * 8) * -1; // randomly position the block on top of the form
-                    score++; //add 1 to the score
+                    blockColor = rnd.Next(colors.Count); // Set Block to A Random Color
+                    block2.BackColor = colors[blockColor]; // Apply Color to Block 2
+                    block2.Top = (block1.Top * 8) * -1; // Choose Random Position on Top of Form
+                    score++; // Increment Score
                 }
             }
 
@@ -72,12 +73,13 @@ namespace colorSwitcher
                 // if the player and block 1 DON'T have the same background color
                 if (player.BackColor != block1.BackColor)
                 {
-                    // we will add the current score to the list box with the time which they were played
-                    Scoreboard.Items.Add("Scored: " + score + " @" + string.Format(" {0:HH:mm:ss tt}", DateTime.Now));
-                    // game over
-                    gameTimer.Stop(); // stop the timer
- // set game over to true now that the player has lost
+                    gameTimer.Stop();
                     gameOver = true;
+                    // we will add the current score to the list box with the time which they were played
+                    playerName = Interaction.InputBox("Name?: ", "Enter Name for Leaderboard", "Enter Text...");
+                    Scoreboard.Items.Add(playerName.ToString() + " Scored: " + score.ToString());
+                    // game over
+           
                 }
             }
 
@@ -87,12 +89,13 @@ namespace colorSwitcher
                 // if the player and block 2 DON'T have the same background color
                 if (player.BackColor != block2.BackColor)
                 {
-                    // Print The Current Score to The Scoreboard Along With the Player's Name
-                   Scoreboard.Items.Add("Scored: " + score + " @" + string.Format(" {0:HH:mm:ss tt}", DateTime.Now));
-                   
                     gameTimer.Stop();
+                    gameOver = true;
+                    playerName = Interaction.InputBox("Name?: ", "Enter Name for Leaderboard", "Enter Text...");
+                    Scoreboard.Items.Add(playerName.ToString() + " Scored: " + score.ToString());                   
 
-                    gameOver = true; 
+
+
                 }
             }
 
@@ -120,10 +123,7 @@ namespace colorSwitcher
             block1.Refresh(); // Refresh The Block So It Scrolls Down The Screen Smoothly
             block2.Refresh();
 
-            if (i + 1 < colors.Count)
-                nextColor.BackColor = colors[i + 1];
-            else
-                nextColor.BackColor = colors[0];
+          
         }
 
         private void ColorSwitch_KeyDown(object sender, KeyEventArgs e)
@@ -139,6 +139,11 @@ namespace colorSwitcher
                 }
 
                 player.BackColor = colors[i];
+
+                if (i + 1 < colors.Count)
+                    nextColor.BackColor = colors[i + 1];
+                else
+                    nextColor.BackColor = colors[0];
             }
 
             if (e.KeyCode == Keys.R && gameOver)
@@ -147,11 +152,13 @@ namespace colorSwitcher
                 resetGame();
                 gameOver = false;
             }
-           }
+
+          
+        }
 
         public void resetGame()
         {
-          
+           
 
             block1.Top = -80; 
             block2.Top = -300;
